@@ -60,6 +60,21 @@ let genre = req.body;//request content
         
 });
 
+//Update Genre
+app.put('/api/genres/:_id', (req, res)=>{
+ let id= req.params._id;//id from request
+let genre = req.body;//conten from request
+
+    Genre.updateGenre(id, genre, {}, (err, genre)=>{
+        if(err){
+            throw err;
+        }else{
+            res.json(genre);
+        }
+    })
+});
+
+
 
 //Books api
 app.get('/api/books', (req, res)=>{
@@ -106,6 +121,23 @@ let book = req.body;//request content
     })
         
 });
+
+//Update Book
+app.put('/api/books/:_id', (req, res)=>{
+let id= req.params._id;//id from request
+let book = req.body; //content from request
+
+    //Genre update
+    Book.updateBook(id, book, {}, (err, book)=>{
+        if(err){
+            throw err;
+        }else{
+            res.json(book);
+        }
+    })
+
+});
+
 
 
 

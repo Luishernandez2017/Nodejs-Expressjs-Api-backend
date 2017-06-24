@@ -65,6 +65,29 @@ var Book = module.exports = mongoose.model('Book', bookSchema);
     }
 
 
+    
+//Update Book
+module.exports.updateBook = (id, book, options, callback)=>{
+
+//define id
+    var query = {_id: id};
+
+//define properties
+    var update= {
+        name: book.title,
+        genre: book.genre,
+        description: book.description,
+        author: book.author,
+        publisher: book.publisher,
+        pages: book.pages,
+        image_url: book.image_url,
+        buy_url: book.buy_url
+
+    }
+   //findOneAndUpdate(id, contentToUpdate, options)
+    Book.findOneAndUpdate(query, update, options, callback);//mongo query
+}
+
 
 
    

@@ -29,3 +29,20 @@ module.exports.getGenres= (callback, limit)=>{
 module.exports.addGenre = (genre, callback)=>{
     Genre.create(genre, callback);//mongo query 
 }
+
+
+
+//update Genre
+module.exports.updateGenre = (id, genre, options, callback)=>{
+
+    //define id
+    var query = {_id: id};
+
+    //define properties
+    var update= {
+        name: genre.name
+    }
+
+    //findOneAndUpdate(id, contentToUpdate, options)
+    Genre.findOneAndUpdate(query, update, options, callback);//mongo query
+}
