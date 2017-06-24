@@ -9,17 +9,70 @@ var app = express();
 Genre = require('./models/genre');
 Book = require('./models/books');
 
+
+//Body Parser Middleware
+app.use(bodyParser.json());
+
+
 //port
 var port = process.env.PORT || 3000;
 
 //Connect to Mongoose
 mongoose.connect('mongodb://localhost/bookstore');
 
-
+//database
 var db = mongoose.connection;
 app.get('/', (req, res) =>{
    
     res.send('Hello from Express');
+
+});
+
+
+//Genres api
+app.get('/api/genres', (req, res)=>{
+
+
+ //Genre object.getGenres()
+    Genre.getGenres((err, genres)=>{
+
+        if(err){
+            throw err;
+        }else{
+            res.json(genres);
+        }
+    })
+        //  console.log(res.json());
+});
+
+//Books api
+app.get('/api/books', (req, res)=>{
+
+
+//Read 
+    Book.getBooks((err, books)=>{
+    if(err){
+        throw err;
+    }else{
+        res.json(books);
+    }
+    
+    });
+
+});
+
+
+//Books get by Id
+app.get('/api/books/:_id', (req, res)=>{
+
+    Book.getBookById(req.params._id, (err, book)=>{
+    if(err){
+        throw err;
+    }else{
+        res.json(book);
+    }
+    
+    });
 
 });
 
