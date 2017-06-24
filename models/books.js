@@ -47,7 +47,7 @@ var Book = module.exports = mongoose.model('Book', bookSchema);
 
 //Read Database Collection content
   module.exports.getBooks = (callback, limit)=>{
-      
+
         Book.find(callback).limit(limit);//mongo query
     }
 
@@ -56,6 +56,12 @@ var Book = module.exports = mongoose.model('Book', bookSchema);
     module.exports.getBookById = (id, callback)=>{
 
         Book.findById(id, callback);//mongo query
+    }
+
+
+    //Create
+     module.exports.addBook = (book, callback)=>{
+        Book.create(book, callback);//mongo query
     }
 
 

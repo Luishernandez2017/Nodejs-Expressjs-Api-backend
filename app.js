@@ -42,8 +42,24 @@ app.get('/api/genres', (req, res)=>{
             res.json(genres);
         }
     })
-        //  console.log(res.json());
+        
 });
+
+
+//Genres create/add
+app.post('/api/genres', (req, res)=>{
+let genre = req.body;//request content
+
+    Genre.addGenre(genre, (err, genre)=>{
+        if(err){
+            throw err;
+        }else{
+            res.json(genre);
+        }
+    })
+        
+});
+
 
 //Books api
 app.get('/api/books', (req, res)=>{
@@ -75,6 +91,24 @@ app.get('/api/books/:_id', (req, res)=>{
     });
 
 });
+
+
+//create book
+app.post('/api/books', (req, res)=>{
+let book = req.body;//request content
+
+    Book.addBook(book, (err, book)=>{
+        if(err){
+            throw err;
+        }else{
+            res.json(book);
+        }
+    })
+        
+});
+
+
+
 
 
 app.listen(port);

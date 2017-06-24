@@ -24,3 +24,8 @@ module.exports.getGenres= (callback, limit)=>{
     Genre.find(callback).limit(limit);//mongo query, with limit
 }
 
+
+//Create genre
+module.exports.addGenre = (genre, callback)=>{
+    Genre.create(genre, callback);//mongo query 
+}
