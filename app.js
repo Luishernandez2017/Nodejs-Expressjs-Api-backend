@@ -74,6 +74,21 @@ let genre = req.body;//conten from request
     })
 });
 
+//Delete Genre
+app.delete('/api/genres/:_id', (req, res)=>{
+let id= req.params._id;//id from request
+
+    Genre.deleteGenre(id, (err, genre)=>{
+        if(err){
+            throw err;
+        }else{
+            res.json(genre);
+        }
+    })
+});
+
+
+
 
 
 //Books api
@@ -139,6 +154,18 @@ let book = req.body; //content from request
 });
 
 
+//Delete Book
+app.delete('/api/books/:_id', (req, res)=>{
+let id= req.params._id;//id from request
+
+    Book.deleteBook(id, (err, book)=>{
+        if(err){
+            throw err;
+        }else{
+            res.json(book);
+        }
+    })
+});
 
 
 

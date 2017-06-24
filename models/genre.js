@@ -46,3 +46,13 @@ module.exports.updateGenre = (id, genre, options, callback)=>{
     //findOneAndUpdate(id, contentToUpdate, options)
     Genre.findOneAndUpdate(query, update, options, callback);//mongo query
 }
+
+
+//Delete Genre
+module.exports.deleteGenre = (id, callback)=>{
+    //Define id
+    var query = {_id: id};
+  
+    Genre.remove(query, callback);//mongo query
+}
+

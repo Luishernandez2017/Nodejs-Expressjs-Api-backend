@@ -88,6 +88,14 @@ module.exports.updateBook = (id, book, options, callback)=>{
     Book.findOneAndUpdate(query, update, options, callback);//mongo query
 }
 
+  
+//Delete Book
+module.exports.deleteBook = (id, callback)=>{
 
+   //Define id
+    var query = {_id: id};
+  
+    Book.remove(query, callback);//mongo query
+}
 
    
