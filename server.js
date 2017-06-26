@@ -1,9 +1,18 @@
 var express = require('express');
 var bodyParser = require('body-parser');    
+const path = require("path"); //path module
 var  mongoose = require('mongoose');
+var cors = require('cors');
 
 var app = express();
+//the route for api
 
+
+//port
+var port = process.env.PORT || 3000;
+
+//public directory
+app.use(express.static(__dirname+'/public'));
 
 //Models
 Genre = require('./models/genre');
@@ -13,9 +22,11 @@ Book = require('./models/books');
 //Body Parser Middleware
 app.use(bodyParser.json());
 
+//CORS Middleware
+app.use(cors());
 
-//port
-var port = process.env.PORT || 3000;
+var api = express.Router();
+
 
 //Connect to Mongoose
 mongoose.connect('mongodb://localhost/bookstore');
@@ -30,7 +41,7 @@ app.get('/', (req, res) =>{
 
 
 //Genres api
-app.get('/api/genres', (req, res)=>{
+api.get('/genres', (req, res)=>{
 
 
  //Genre object.getGenres()
@@ -47,7 +58,7 @@ app.get('/api/genres', (req, res)=>{
 
 
 //Genres create/add
-app.post('/api/genres', (req, res)=>{
+api.post('/genres', (req, res)=>{
 let genre = req.body;//request content
 
     Genre.addGenre(genre, (err, genre)=>{
@@ -61,7 +72,7 @@ let genre = req.body;//request content
 });
 
 //Update Genre
-app.put('/api/genres/:_id', (req, res)=>{
+api.put('/genres/:_id', (req, res)=>{
  let id= req.params._id;//id from request
 let genre = req.body;//conten from request
 
@@ -75,7 +86,7 @@ let genre = req.body;//conten from request
 });
 
 //Delete Genre
-app.delete('/api/genres/:_id', (req, res)=>{
+api.delete('/genres/:_id', (req, res)=>{
 let id= req.params._id;//id from request
 
     Genre.deleteGenre(id, (err, genre)=>{
@@ -92,7 +103,7 @@ let id= req.params._id;//id from request
 
 
 //Books api
-app.get('/api/books', (req, res)=>{
+api.get('/books', (req, res)=>{
 
 
 //Read 
@@ -109,7 +120,7 @@ app.get('/api/books', (req, res)=>{
 
 
 //Books get by Id
-app.get('/api/books/:_id', (req, res)=>{
+api.get('/books/:_id', (req, res)=>{
 
     Book.getBookById(req.params._id, (err, book)=>{
     if(err){
@@ -124,7 +135,7 @@ app.get('/api/books/:_id', (req, res)=>{
 
 
 //create book
-app.post('/api/books', (req, res)=>{
+api.post('/books', (req, res)=>{
 let book = req.body;//request content
 
     Book.addBook(book, (err, book)=>{
@@ -138,7 +149,7 @@ let book = req.body;//request content
 });
 
 //Update Book
-app.put('/api/books/:_id', (req, res)=>{
+api.put('/books/:_id', (req, res)=>{
 let id= req.params._id;//id from request
 let book = req.body; //content from request
 
@@ -155,7 +166,7 @@ let book = req.body; //content from request
 
 
 //Delete Book
-app.delete('/api/books/:_id', (req, res)=>{
+api.delete('/books/:_id', (req, res)=>{
 let id= req.params._id;//id from request
 
     Book.deleteBook(id, (err, book)=>{
@@ -168,7 +179,8 @@ let id= req.params._id;//id from request
 });
 
 
-
+//routhe is /api/ 
+app.use('/api', api);
 
 app.listen(port);
 

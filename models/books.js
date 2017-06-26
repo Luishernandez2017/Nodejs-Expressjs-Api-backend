@@ -12,7 +12,7 @@ var bookSchema = mongoose.Schema({
                  type: String,
                  required:true
              },
-           description:{
+           overview:{
                type:String
 
            },
@@ -74,9 +74,9 @@ module.exports.updateBook = (id, book, options, callback)=>{
 
 //define properties
     var update= {
-        name: book.title,
+        title: book.title,
         genre: book.genre,
-        description: book.description,
+        overview: book.overview,
         author: book.author,
         publisher: book.publisher,
         pages: book.pages,
